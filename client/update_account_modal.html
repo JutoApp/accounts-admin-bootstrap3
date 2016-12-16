@@ -1,59 +1,59 @@
 <template name="updateAccountModal">
-  <div id="updateaccount" class="modal fade" tabindex="-1">
-    <div class="container section">
-      {{> updateAccountModalInner}}
+  <div id="updateaccount" class="modal fade" tabindex="-1" style="display:none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{> updateAccountModalInner}}
+      </div>
     </div>
   </div>
 </template>
 
 <template name="updateAccountModalInner">
   {{#with userInScope}}
-    <div class="modal-body">
-      <h5>{{t9n "update"}} {{email}}</h5>
-
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field">
-
-            <input id="profile.name" data-user-id="{{_id}}" class="admin-user-info" name="profile.name"
-                   value="{{profile.name}}" placeholder="{{profile.name}}" type="text">
-            <label for="profile.name" class="active">{{t9n "Name"}}</label>
-          </div>
-        </div>
-      </form>
-      {{#if roles}}
-        <ul class="collection">
-          <li class="collection-header">{{t9n "AssignedRoles"}}:</li>
-          {{#each roles}}
-            <li class="collection-item">
-              <span data-user-id="{{../_id}}" class="clickable remove-role waves-effect waves-light">
-                <i class="material-icons">remove_circle_outline</i>
-              </span>
-              <span class="right-align">{{t9n this}}</span>
-            </li>
-          {{/each}}
-        </ul>
-      {{else}}
-        {{t9n "This account has no roles"}}.
-      {{/if}}
-      {{#if unsetRoles}}
-        <ul class="collection">
-          <li class="collection-header">{{t9n "AddRoleToUser"}}:</li>
-          {{#each unsetRoles}}
-            <li class="collection-item">
-              <span data-user-id="{{../_id}}" class="clickable addbtn add-role waves-effect waves-light">
-                <i class="material-icons">add_circle_outline</i>
-              </span>
-              <span class="right-align">{{this}}</span>
-            </li>
-          {{/each}}
-        </ul>
-      {{else}}
-        <em>{{t9n "All roles have already been set"}}</em>
-      {{/if}}
-      <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-action modal-close">{{t9n "Done"}}</button>
+  <div class="modal-header">
+    <h4>{{t9n "update"}} {{email}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon">{{t9n "Name"}}</span>
+        <input id="profile.name" data-user-id="{{_id}}" class="form-control admin-user-info" name="profile.name"
+               value="{{profile.name}}" placeholder="{{profile.name}}" type="text">
       </div>
     </div>
+    {{#if roles}}
+    <ul class="list-group">
+      <li class="list-group-item">{{t9n "AssignedRoles"}}:</li>
+      {{#each roles}}
+      <li class="list-group-item">
+        <button data-user-id="{{../_id}}" class="btn btn-danger btn-xs remove-role">
+          Remove
+        </button>
+        <span class="pull-right">{{t9n this}}</span>
+      </li>
+      {{/each}}
+    </ul>
+    {{else}}
+    {{t9n "This account has no roles"}}.
+    {{/if}}
+    {{#if unsetRoles}}
+    <div class="btn-group clearfix full-width">
+      <button type="button" class="btn btn-success dropdown-toggle pull-right" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-plus"></span> Add Role
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        {{#each unsetRoles}}
+        <li><a href="#" class="add-role" data-user-id="{{../_id}}">{{this}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+    {{else}}
+    <em>All roles already set.</em>
+    {{/if}}
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-primary">{{t9n "Done"}}</button>
+  </div>
+
   {{/with}}
 </template>
