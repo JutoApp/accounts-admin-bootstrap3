@@ -33,7 +33,7 @@ Template.deleteAccountModalInner.events({
 					Errors.throw(error.reason);
 				}
 			}
-			$("#deleteaccount").closeModal();
+			$("#deleteaccount").modal("hide");
 		});
 	},
   'click .modal-close': function(event, template) {

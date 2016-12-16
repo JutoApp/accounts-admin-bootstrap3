@@ -1,20 +1,26 @@
 <template name="accountsAdmin">
   <div class="row accounts-search">
-    <div class="col s6">
-      <input type="text" class="form-control search-input-filter" value="{{searchFilter}}" id="searchFilter">
-      <label for="searchFilter">{{t9n "Filter"}}</label>
-    </div>
-    <div class="col s2">
-      <button class="btn btn-floating waves-effect waves-light" type="button"><i class="material-icons">search</i></button>
-    </div>
-    <div class="col s3 offset-s1">
-    <button class="btn waves-effect waves-light modal-trigger full-width" type="button" data-target="updateroles" id="updaterolesbtn"
-            href="#updateroles">Manage Roles
-    </button>
+    <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+      <div class="input-group">
+        <input type="text" class="form-control search-input-filter" value="{{searchFilter}}"/>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+              {{#if isInRole 'admin'}}
+
+      <button class="btn btn-default" type="button" data-target="updateFilter" id="updatefilterbtn"
+              data-toggle="modal" href="#updateFilter"><span class="fa fa-filter"></span></button> <!-- filter_list -->
+
+      <button class="btn" type="button" data-toggle="modal" data-target="adduser" id="adduserbtn" href="#adduser"><span
+          class="fa fa-plus"></span></button> <!-- add_circle_outline -->
+          <!--<button class="btn btn-default" type="button" data-toggle="modal" href="#updateroles">Manage Roles</button>-->
+          {{/if}}
+        </span>
+
+      </div>
     </div>
   </div>
 
-  <table class='responsive-table highlight'>
+  <table class='table table-striped'>
     <thead>
     <tr>
       <th>&nbsp;</th>
@@ -26,28 +32,28 @@
     </thead>
     <tbody>
     {{#each users}}
-      <tr class="{{#if myself _id}}info{{/if}}">
-        <td>
-          {{#unless myself _id}}
-            <span data-target="deleteaccount" data-toggle="modal" href="#deleteaccount"
-                  class="clickable removebtn modal-trigger"><i class="material-icons">remove_circle_outline</i></span>
-            <span data-toggle="modal" href="#updateaccount" class="clickable editbtn modal-trigger"><i
-                class="material-icons">mode_edit</i></span>
-            <span data-toggle="modal" href="#infoaccount" class="clickable infobtn modal-trigger"><i
-                class="material-icons">info_outline</i></span>
-          {{/unless}}
-        </td>
-        <td>
-          {{#if profile.name}}
-            {{profile.name}}
-          {{else}}
-            {{email}}
-          {{/if}}
-        </td>
-        <td>{{email}}</td>
-        <td>{{username}}</td>
-        <td>{{roles}}</td>
-      </tr>
+    <tr class="{{#if myself _id}}info{{/if}}">
+      <td>
+        {{#unless myself _id}}
+        <span data-target="deleteaccount" data-toggle="modal" href="#deleteaccount"
+              class="clickable removebtn modal-trigger glyphicon glyphicon-trash"></span>
+        <span data-toggle="modal" href="#updateaccount"
+              class="clickable editbtn modal-trigger glyphicon glyphicon-pencil "></span>
+        <span data-toggle="modal" href="#infoaccount"
+              class="clickable infobtn modal-trigger glyphicon glyphicon-info-sign"></span>
+        {{/unless}}
+      </td>
+      <td>
+        {{#if profile.name}}
+        {{profile.name}}
+        {{else}}
+        {{email}}
+        {{/if}}
+      </td>
+      <td>{{email}}</td>
+      <td>{{username}}</td>
+      <td>{{roles}}</td>
+    </tr>
     {{/each}}
     </tbody>
   </table>
@@ -55,4 +61,8 @@
   {{> deleteAccountModal}}
   {{> infoAccountModal}}
   {{> updateAccountModal}}
+  {{#if isInRole 'admin'}}
+    {{> adduserModal}}
+  {{/if}}
+
 </template>

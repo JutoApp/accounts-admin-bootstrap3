@@ -57,20 +57,20 @@ Template.accountsAdmin.events({
 
   'click .removebtn': function (event, template) {
     Session.set('userInScope', this);
-    $('#deleteaccount').openModal();
+    // $('#deleteaccount').openModal();
   },
 
   'click .infobtn': function (event, template) {
     Session.set('userInScope', this);
-    $('#infoaccount').openModal();
+    // $('#infoaccount').openModal();
   },
 
   'click .editbtn': function (event, template) {
     Session.set('userInScope', this);
-    $('#updateaccount').openModal();
+    // $('#updateaccount').openModal();
   },
   'click #updaterolesbtn': function(event, template) {
-    $('#updateroles').openModal();
+    // $('#updateroles').openModal();
   }
 });
 

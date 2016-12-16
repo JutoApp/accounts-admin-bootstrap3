@@ -1,17 +1,16 @@
 Package.describe({
-	summary: "Comprehensive user management for materializecss. Forked from mrt:accounts-admin-ui-bootstrap-3.",
+	summary: "Comprehensive user management for bootstrap.",
   git: 'https://github.com/AppWorkshop/meteor-accounts-admin-materializecss',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md',
-  version: "0.3.0",
-  name: "cunneen:accounts-admin-materializecss"
+  version: "1.0.0",
+  name: "juto:accounts-admin-bootstrap3"
 });
 
 Package.on_use(function (api, where) {
-  api.versionsFrom("METEOR@0.9.0");
 	api.use([
-			"alanning:roles@1.2.8",
+			"alanning:roles@1.2.15",
 			'coffeescript',
 			'templating',
 			'check',
@@ -29,6 +28,8 @@ Package.on_use(function (api, where) {
 	api.add_files('libs/user_query.js', ['client', 'server']);
 
   api.add_files('client/roles_hierarchy_helpers.js', 'client');
+  api.add_files('client/addUser.html', 'client');
+  api.add_files('client/addUser.js', 'client');
 	api.add_files('client/accounts_admin.html', 'client');
 	api.add_files('client/accounts_admin.js', 'client');
 	api.add_files('client/delete_account_modal.html', 'client');
