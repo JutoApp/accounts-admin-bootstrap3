@@ -60,13 +60,17 @@ filteredUserQuery = function (userId, searchFilterString, searchFilterObject, fi
     queryCriteria = {}; // there's no criteria.
   }
 
+  console.log("query criteria:");
+  console.log(JSON.stringify(queryCriteria, null, 2));
+  console.log("fields:");
+  console.log(JSON.stringify(fields, null, 2));
   //console.log(" ============ finding users with query criteria: " + JSON.stringify(queryCriteria) + "; fields:  " + JSON.stringify(fields));
   var users = Meteor.users.find(queryCriteria, {sort: {'profile.name': 1, 'username': 1, emails: 1},
     fields: fields
   });
 
-  //console.log(" ============ found users: ===============");
-  //console.log(JSON.stringify(users.fetch()));
+  console.log(" ============ found users: ===============");
+  console.log(JSON.stringify(users.fetch()));
   return users;
 };
 

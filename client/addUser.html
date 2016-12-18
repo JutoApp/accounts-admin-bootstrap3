@@ -10,71 +10,24 @@
 </template>
 
 <template name="adduserModalInner">
-  <div class="modal-content">
-    <h5>Add User</h5>
-    <!-- aau = admin add user -->
-    <form id="aau-form">
-      <div class="input-field">
-        <input type="text" id="aau-first-name-input" class="col s9 first-name-input" value="" autocapitalize="none"
-               autocorrect="off" required/>
-        <div class="hidden">
-          <i class="fa fa-times"></i>
-          <span class="red-text ">Required Field</span>
-        </div>
-        <label for="aau-first-name-input" id="aau-first-name-label">First Name</label>
-      </div>
-      <div class="input-field">
-        <input type="text" id="aau-surname-input" class="col s9 surname-input" value="" autocapitalize="none"
-               autocorrect="off" required/>
-        <div class="hidden">
-          <i class="fa fa-times"></i>
-          <span class="red-text ">Required Field</span>
-        </div>
-        <label for="aau-surname-input" id="aau-surname-label">Surname</label>
-      </div>
-      <div class="input-field">
-        <input type="text" id="aau-username-input" class="col s9 add-user-input" value="" autocapitalize="none"
-               autocorrect="off" required/>
-        <div class="hidden">
-          <i class="fa fa-times"></i>
-          <span class="red-text ">Required Field</span>
-        </div>
-        <label for="aau-username-input" id="aau-username-label">Username</label>
-      </div>
-      <div class="input-field">
-        <input type="password" id="aau-password-input" class="col s9 password-input" value="" autocapitalize="none"
-               autocorrect="off" required/>
-        <div class="hidden">
-          <i class="fa fa-times"></i>
-          <span class="red-text ">Required Field</span>
-        </div>
-        <label for="aau-password-input" id="aau-password-label">Password</label>
-      </div>
-      <div class="input-field">
-        <input type="tel" id="aau-phone-input" class="col s9 aau-phone-input" value="" autocapitalize="none"
-               autocorrect="off" pattern="[0-9]{10}"/>
-        <div class="hidden">
-          <i class="fa fa-times"></i>
-          <span class="red-text ">Required Field</span>
-        </div>
-        <label for="aau-phone-input">Mobile Phone (10 digits)</label>
-      </div>
-      <div class="input-field">
-        <input type="email" id="aau-email-input" class="col s9 aau-email-input" value="" autocapitalize="none"
-               autocorrect="off"/>
-        <div class="hidden">
-          <i class="fa fa-times"></i>
-          <span class="red-text ">Required Field</span>
-        </div>
-        <label for="aau-email-input" id="aau-email-label">Email</label>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat"><!--{{t9n "Cancel"}}-->Cancel<i
-            class="material-icons">cancel</i></a>
-        <button type="button" class="aau-button btn waves-effect waves-light">Add User<i class="material-icons">add</i>
-        </button>
-      </div>
-    </form>
+  <div class="modal-header">
+    <h4>Add User</h4>
   </div>
+  {{#autoForm id="accountsAddUser" schema=(userSchema) type="normal" }}
+  <div class="modal-body">
+    {{> afQuickField name="emailAddress" }}
+    {{> afQuickField name="profile.firstname" }}
+    {{> afQuickField name="profile.lastname" }}
+    {{> afQuickField name="profile.phoneNumber"}}
+    {{> afQuickField name="password"}}
+    {{> afQuickField name="confirmPassword"}}
+
+    <div class="modal-footer form-group">
+      <button type="reset" data-dismiss="modal" class="btn btn-default">Cancel</button>
+      <button type="submit" class="aau-button btn btn-primary">Add User <i class="fa fa-user-plus"></i>
+      </button>
+    </div>
+  </div>
+  {{/autoForm}}
 </template>
 

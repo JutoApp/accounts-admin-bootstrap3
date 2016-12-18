@@ -24,14 +24,14 @@
     {{#if roles}}
     <ul class="list-group">
       <li class="list-group-item">{{t9n "AssignedRoles"}}:</li>
-      {{#each roles}}
+      {{!-- #each roles
       <li class="list-group-item">
         <button data-user-id="{{../_id}}" class="btn btn-danger btn-xs remove-role">
           Remove
         </button>
         <span class="pull-right">{{t9n this}}</span>
       </li>
-      {{/each}}
+      {{/each --}}
     </ul>
     {{else}}
     {{t9n "This account has no roles"}}.

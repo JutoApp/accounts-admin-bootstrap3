@@ -16,17 +16,23 @@ Package.on_use(function (api, where) {
 			'check',
 			'underscore',
 			'logging',
-			'softwarerero:accounts-t9n@1.1.4'],
+			'softwarerero:accounts-t9n@1.1.4',
+			'aldeed:simple-schema',
+			'aldeed:autoform'
+		],
 		['client',
 			'server']);
+	api.imply(['chrismbeckett:toastr'],'client');
 	api.use(['session'],['client']);
 
   var path = Npm.require('path');
   api.add_files(path.join('libs','t9n','en.coffee'), 'client');
   api.add_files(path.join('libs','t9n','id.coffee'), 'client');
+  api.add_files('client/client_common.js', ['client']);
+  api.add_files('libs/schema.js', ['client', 'server']);
   api.add_files('libs/role_hierarchy.js', ['client', 'server']);
 	api.add_files('libs/user_query.js', ['client', 'server']);
-
+	api.add_files('client/accountsAdminModalInclude.html',['client']);
   api.add_files('client/roles_hierarchy_helpers.js', 'client');
   api.add_files('client/addUser.html', 'client');
   api.add_files('client/addUser.js', 'client');

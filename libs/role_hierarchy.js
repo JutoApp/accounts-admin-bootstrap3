@@ -97,7 +97,12 @@ RolesHierarchy.prototype.getAllMySubordinatesAsArray = function (myUserId) {
 
   // I might have a few roles.
   if (myUserObj) {
-    var myRoles = myUserObj.roles || [];
+    var group = Roles.GLOBAL_GROUP;
+    if (myUserObj.profile && myUserObj.profile.organization) {
+      group = myUserObj.profile.organization;
+    }
+
+    var myRoles = Roles.getRolesForUser(myUserObj, group) || [];
     // for each role I have, add the subordinate roles to the list of roles I can administer.
     for(var thisRole in myRoles) {
       if (myRoles.hasOwnProperty(thisRole)) {
@@ -189,11 +194,12 @@ RolesHierarchy.prototype.isUserCanAdministerUser= function(adminId, subordinateI
  * @param {object} meteorUser - the user whose profile to copy
  * @param {object} profileFilterCriteria - existing profileFilterCriteria. Note that if any properties are already specified, they may
  *  get overwritten.
+ * @param {string} group / organization name
  * @returns {*} the query criteria to ensure only users with the same profile property values will be returned.
  */
-RolesHierarchy.prototype.copyProfileCriteriaFromUser = function(meteorUser, profileFilterCriteria) {
+RolesHierarchy.prototype.copyProfileCriteriaFromUser = function(meteorUser, profileFilterCriteria, group) {
   if (meteorUser && RolesTree) {
-    var rolesArray = Roles.getRolesForUser(meteorUser._id);
+    var rolesArray = Roles.getRolesForUser(meteorUser._id, group);
     for (var roleIndex in rolesArray) {
       if (meteorUser.profile && rolesArray.hasOwnProperty(roleIndex)) {
         // find this role in the hierarchy

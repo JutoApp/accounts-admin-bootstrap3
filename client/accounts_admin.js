@@ -2,8 +2,13 @@ var getUsers = function() {
   var configuredFields;
   var profileFilterCriteria;
   if (RolesTree) {
+    var user = Meteor.user();
+    var group;
+    if (user && user.profile) {
+      group = user.profile.organization;
+    }
     configuredFields = RolesTree.getAllMyFieldsAsObject(Meteor.userId());
-    profileFilterCriteria = RolesTree.copyProfileCriteriaFromUser(Meteor.user(),{});
+    profileFilterCriteria = RolesTree.copyProfileCriteriaFromUser(Meteor.user(),{}, group);
 
   }
   return filteredUserQuery(Meteor.userId(), Session.get("userFilter"), Session.get("userFilterCriteria"), configuredFields, undefined, profileFilterCriteria);
@@ -14,24 +19,27 @@ Template.accountsAdmin.helpers({
   users: function () {
     return getUsers();
   },
-
-  email: function () {
-    if (this.emails && this.emails.length)
-      return this.emails[0].address;
-
-    if (this.services) {
-      //Iterate through services
-      for (var serviceName in this.services) {
-        var serviceObject = this.services[serviceName];
-        //If an 'id' isset then assume valid service
-        if (serviceObject.id) {
-          if (serviceObject.email) {
-            return serviceObject.email;
-          }
-        }
+  showAddButton: function() {
+    var user = Meteor.user();
+    if (user && user.profile && user.profile.organization) {
+      // get this user's roles for their default org
+      var roles = Roles.getRolesForUser(user, user.profile.organization);
+      if (roles) {
+        return roles.includes("admin") || roles.includes("appAdmin");
       }
+
     }
-    return "";
+  },
+  email: function () {
+    return getEmailAddress(this);
+  },
+  roles: function() {
+    var retval = getRolePairs(this);
+    console.log(retval);
+    return retval;
+  },
+  profileName: function() {
+    return getProfileName(this);
   },
 
   searchFilter: function () {
