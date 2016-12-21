@@ -9,6 +9,7 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
+	api.use('ecmascript');
 	api.use([
 			"alanning:roles@1.2.15",
 			'coffeescript',
